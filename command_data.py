@@ -1,1 +1,6 @@
-command = ['ls -l', 'last | head']
+import info
+
+command = [
+'ls -l',
+'last | head',
+]
