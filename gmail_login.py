@@ -7,7 +7,8 @@ from email.mime.message import MIMEMessage
 from email.mime.multipart import MIMEMultipart
 from email.utils import formatdate
 import ssl
-import mimetypes
+import magic
+import os
 
 import info
 
@@ -20,16 +21,17 @@ def create_message(from_addr, to_addr, cc_addrs, bcc_addrs, subject):
     msg['Date'] = formatdate()
     return msg
 
-def attach_file(msg, file_list):
-    for f in file_list:
-        with open(f, 'rb') as fp:
-            types = get_mimetypes(f)
+def attach_file(msg, attach_dir):
+    for file_name in os.listdir(attach_dir):
+        path = os.path.join(attach_dir, file_name)
+        with open(path, 'rb') as fp:
+            types = get_mimetypes(path)
             attachment = MIMEBase(types['maintype'], types['subtype'])
             attachment.set_payload(fp.read())
             encoders.encode_base64(attachment)
             attachment.add_header(
                 'Content-Disposition', 'attachment',
-                filename = f
+                filename = file_name
             )
             msg.attach(attachment)
 
@@ -42,8 +44,8 @@ def send_mail(from_addr, to_addrs, password, msg):
     sender.sendmail(from_addr, to_addrs, msg.as_string())
     sender.quit()
 
-def get_mimetypes(f):
-    m = mimetypes.guess_type(f)[0].split('/')
+def get_mimetypes(path):
+    m = magic.from_file(path, mime=True).split('/')
     types = dict(maintype = m[0], subtype = m[1])
     return types
 
@@ -55,10 +57,10 @@ if __name__ == '__main__':
     subject = info.SUBJECT
     body = info.BODY
     password = info.PASSWORD
-    file_list = info.FILE_LIST
+    attach_dir = info.ATTACH_DIR
 
     msg = create_message(from_addr, to_addr, cc_addrs, bcc_addrs, subject)
     add_text(msg, body)
-    attach_file(msg, file_list)
+    attach_file(msg, attach_dir)
     send_mail(from_addr, to_addr, password, msg)
 

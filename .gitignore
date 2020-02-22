@@ -1,3 +1,5 @@
 memo
 info.py
 __pycache__
+attachment/*
+!.gitkeep
