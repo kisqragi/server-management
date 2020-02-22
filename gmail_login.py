@@ -18,6 +18,7 @@ def create_message(from_addr, to_addr, cc_addrs, bcc_addrs, subject):
     msg['From'] = from_addr
     msg['To'] = to_addr
     msg['Bcc'] = bcc_addrs
+    msg['Cc'] = cc_addrs
     msg['Date'] = formatdate()
     return msg
 
