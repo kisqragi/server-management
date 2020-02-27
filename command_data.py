@@ -1,5 +1,6 @@
 import info
 
 command = [
-    'ls'
+    'ls',
+    'last | head'
 ]

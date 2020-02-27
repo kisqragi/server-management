@@ -50,18 +50,4 @@ def get_mimetypes(path):
     types = dict(maintype = m[0], subtype = m[1])
     return types
 
-if __name__ == '__main__':
-    from_addr = info.FROM_ADDRESS
-    to_addr = info.TO_ADDRESS
-    cc_addrs = info.CC
-    bcc_addrs = info.BCC
-    subject = info.SUBJECT
-    body = info.BODY
-    password = info.PASSWORD
-    attach_dir = info.ATTACH_DIR
-
-    msg = create_message(from_addr, to_addr, cc_addrs, bcc_addrs, subject)
-    add_text(msg, body)
-    attach_file(msg, attach_dir)
-    send_mail(from_addr, to_addr, password, msg)
 

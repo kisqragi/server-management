@@ -13,4 +13,6 @@ SUBJECT = 'python'
 BODY = 'pythonでメール送信'
 
 ATTACH_DIR = 'attachment/'
- 
+  
+ALLOW_IP_LIST = ['x.x.x.x']
+GET_FILE_LIST = ['/var/log/hoge']
