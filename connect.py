@@ -75,11 +75,11 @@ def main():
     msg = send_mail.create_message(from_addr, to_addr, cc_addrs, bcc_addrs, subject)
     send_mail.attach_file(msg, attach_dir)
     send_mail.send_mail(from_addr, to_addr, password, msg)
-
     #run_cmd(client)
 
     client.close()
 
+    shutil.rmtree('attachment')
 
 if __name__ == '__main__':
     main()
