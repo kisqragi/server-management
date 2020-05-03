@@ -10,7 +10,7 @@ USERNAME = "webhookbot"
 def check_login():
     ret = '----- check_login -----\n'
     deallow_ip_flag = True
-    cmd = 'grep Accepted /var/log/auth.log | tail -10'
+    cmd = 'cat /var/log/auth.log /var/log/auth.log.1 | grep Accepted  | tail -10'
     proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
 
     for line in proc.stdout.decode('utf-8').split('\n'):
